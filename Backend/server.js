@@ -2,7 +2,10 @@ import express from 'express'
 import dotenv from 'dotenv'
 import fs from 'fs'
 import https from 'https'
-import { Certificate } from 'crypto';
+import { Certificate } from 'crypto'
+import mongoose from 'mongoose'
+import routes from './Routes/index.js'  //routes 
+
 // We are loading the enviroments variables from .env
 dotenv.config();
 
@@ -13,11 +16,8 @@ const PORT = process.env.PORT || 5000;
 // Adding middleware to parse JSON Bodies; Middleware using software that you did not create yourself
 app.use(express.json())
 
-//Add basic route
-app.get('/',(req,res) =>{
-
-    res.send('Welcome to the PhotoShare API');
-})
+//Routes
+app.use('/api',routes)
 
 //secure certificate (making use of the mkcerts)
 const sslOptions ={
